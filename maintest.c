@@ -1,10 +1,7 @@
-#include"loadimg.h"
-#include"scrol.h"
+#include"animation.h"
+#include"scrolling.h"
 #include"collision.h"
-#include "ennemi.h"
-#include <stdio.h>
-#include <stdlib.h>
-#include <stdbool.h>
+#include "bounding.h"
 #include <SDL/SDL.h>
 #include <SDL/SDL_image.h>
 #include <SDL/SDL_ttf.h>
@@ -14,48 +11,72 @@
 
 int main ( int argc, char* argv[] )
 {
+int directionSDL=0;
+   int collisionb = 0;
+  int game =1;
 
+   SDL_Event event;
+   SDL_Surface *screen=NULL,*pomme=NULL,*tanit=NULL,*enigme=NULL;
+  SDL_Rect positionpomme,postanit,posenigme,posinst;
+
+
+pomme=IMG_Load("perso.png");
+if (pomme==NULL){
+printf("Unable to load png : %s\n",SDL_GetError());
+return 1;
+}
+tanit=IMG_Load("shark.png");
+if (tanit==NULL){
+printf("Unable to load png : %s\n",SDL_GetError());
+return 1;
+}
+
+
+SDL_EnableKeyRepeat(SDL_DEFAULT_REPEAT_DELAY,SDL_DEFAULT_REPEAT_INTERVAL);
+        perso p1;
         scrol s;
-        enemi e;
-       SDL_Surface *ecran = NULL,*back=NULL,*back2=NULL,*back3=NULL;
-       SDL_Surface *pers[6];
-       SDL_Rect positionFond,pos;
-       SDL_Surface*idle;
-       SDL_Surface *walk[7];
-       int x,y;
-   int i=0,j=1,k=0;
-   float t=1000/20;
-   int done=0;
+       
+        SDL_Surface *ecran = NULL,*back=NULL;
+        SDL_Surface *pers[6];
+     
         SDL_Rect positionback,positioncap,positionback3,positionback2;
         
         positionback.x=0;
         positionback.y=0;
-        positionFond.x=0;
-        positionFond.y=0;
-        pos.x=300;
-    bool b[4]={0,0,0,0};
-    pos.y=150;
+        
+	positionpomme.x=20;
+	positionpomme.y=450;
+	positionpomme.w=pomme->w;
+	positionpomme.h=pomme->h;
+	postanit.x=50;
+	postanit.y=50;
+	postanit.w=tanit->w;
+	postanit.h=tanit->h;
 
         
-        loadimg(&e);
+        loadimg(&p1);
         back= IMG_Load("back.png");
-        
+        //back2= IMG_Load("Calque 6.png");
+        //back3= IMG_Load("Calque 6.png");
+
        
-      
+       // SDL_BlitSurface(back1,NULL, ecran,&positionback1);
+
+        //SDL_BlitSurface(back,NULL, ecran,&positionback);
        
-        SDL_Event event;
+
         int gameover = 1;
         int test=0,test2=0;
         int keys[323] = {0};
 	
-        init_ennemi(&e) ;
+        init_perso(&p1) ;
 
         init_camera(&s); 
         SDL_Init(SDL_INIT_VIDEO);
 
         ecran = SDL_SetVideoMode(WIDTH, HEIGHT, 32, SDL_HWSURFACE | SDL_DOUBLEBUF);
 
-        SDL_WM_SetCaption("FAIRY TAIL ", NULL);
+        SDL_WM_SetCaption("zeineb ", NULL);
         
 test=0;
 
@@ -83,17 +104,17 @@ test=0;
                                  if(keys[SDLK_LEFT])
 {
 test=1;
-if(collision_p1(back,e,s)==0)
+if(collision_p1(back,p1,s)==0)
 {
 
-                            updateennemi(&e,test);
-                            set_camera_left(&s,&e,test);
+                            updateperso(&p1,test);
+                            set_camera_left(&s,&p1,test);
 }
-if(collision_p1(back,e,s)==1)
+if(collision_p1(back,p1,s)==1)
 
 { 
-updateennemi(&e,2);
-set_camera_right(&s,&e,2);
+updateperso(&p1,2);
+set_camera_right(&s,&p1,2);
 
 
 }
@@ -115,19 +136,19 @@ set_camera_right(&s,&e,2);
                                  if(keys[SDLK_RIGHT])
 {
 test=2;
-if(collision_p1(back,e,s)==0)
+if(collision_p1(back,p1,s)==0)
 {
                             
-                            updateennemi(&e,test);
-                            set_camera_right(&s,&e,test);
+                            updateperso(&p1,test);
+                            set_camera_right(&s,&p1,test);
 
 }
 
- if(collision_p1(back,e,s)==1)
+ if(collision_p1(back,p1,s)==1)
 
 { 
-updateennemi(&e,1);
-set_camera_left(&s,&e,1);
+updateperso(&p1,1);
+set_camera_left(&s,&p1,1);
 
 
 
@@ -146,16 +167,16 @@ set_camera_left(&s,&e,1);
 {
                            test=3; 
 test2=0;
-                            if(collision_p1(back,e,s)==0)
+                            if(collision_p1(back,p1,s)==0)
 {
-                            updateennemi(&e,test);
-                            set_camera_up(&s,&e,test);
+                            updateperso(&p1,test);
+                            set_camera_up(&s,&p1,test);
 }
-if(collision_p1(back,e,s)==1)
+if(collision_p1(back,p1,s)==1)
 
 { 
-updateennemi(&e,4);
-set_camera_down(&s,&e,4);
+updateperso(&p1,4);
+set_camera_down(&s,&p1,4);
 
 
 }
@@ -172,21 +193,22 @@ set_camera_down(&s,&e,4);
                            
 test=4;
                            
-                           if(collision_p1(back,e,s)==0)
+                           if(collision_p1(back,p1,s)==0)
 { 
-                            updateennemi(&e,test);
-                            set_camera_down(&s,&e,test);
+                            updateperso(&p1,test);
+                            set_camera_down(&s,&p1,test);
                                                          
 }
-if(collision_p1(back,e,s)==1)
+if(collision_p1(back,p1,s)==1)
 
 { 
-updateennemi(&e,3);
-set_camera_up(&s,&e,3);
+updateperso(&p1,3);
+set_camera_up(&s,&p1,3);
 
 
 }
-                            
+                            //SDL_BlitSurface(back1, &(s.positioncamera), ecran, &positionback1);
+                            //test==4;
 
 
 
@@ -195,22 +217,18 @@ set_camera_up(&s,&e,3);
                   
 
 
-
-                           
-
-
 SDL_FillRect(ecran, NULL, SDL_MapRGB(ecran->format, 255, 255, 255));
-
+//updateperso(&p1,&p2,test,test2);
 
 SDL_BlitSurface(back,NULL,ecran,&positionback);  
 SDL_BlitSurface(back,&(s.positioncamera), ecran,&positionback);  
 
 
 
+//SDL_BlitSurface(s.camera,&(s.positioncamera), ecran,NULL);
 
 
-
-displayennemi(e,ecran,test) ;
+displayperso(p1,ecran,test) ;
 
 
 
@@ -219,252 +237,37 @@ displayennemi(e,ecran,test) ;
 }
 
 
-ennemi_freeennemi(&e);
-
-      
-   /* SDL_Surface  *imageDeFond = NULL;
-    SDL_Rect positionFond,pos;
-    SDL_Surface*idle;
-    SDL_Surface *walk[6];
-    int x,y;
-   int i=0,j=1,k=0;
-   float t=1000/20;
-   int done=0;*/
-   /* positionFond.x = 0;
-    positionFond.y =0;
-    pos.x=300;
-    bool b[4]={0,0,0,0};
-    pos.y=150;*/
-
-    
-
- idle=IMG_Load("pics/1.png");
-
-SDL_BlitSurface(back, NULL, ecran, &positionFond);
-SDL_BlitSurface(idle, NULL, ecran, &pos);
-SDL_Flip(ecran);
-
-   while(!done)
-   {
-     
-     
-    SDL_Event event;
-    while(SDL_PollEvent(&event))
-    {
-
-
-    if(event.type==SDL_QUIT)
-    {
-        done=1;
-
-    }
-
-         switch(event.type)
-         {
-          case SDL_MOUSEBUTTONUP:
-                {
-                SDL_GetMouseState(&x,&y);
-                
-
-                   while(pos.x < x)
-      {
-        walk_anim(walk);
-SDL_BlitSurface(back, NULL, ecran, &positionFond);
-SDL_BlitSurface(walk[i], NULL, ecran, &pos);
-
-    SDL_Flip(ecran);
-    SDL_Delay(t);
-    if (x - pos.x > 10)
-    {
-pos.x+=10;
-}
-else 
+perso_freeperso1(&p1);
+while (game)
 {
-  pos.x+=x-pos.x;
-SDL_BlitSurface(back, NULL, ecran, &positionFond);
-SDL_BlitSurface(idle, NULL, ecran, &pos);
+  //input from SDL
+  while(SDL_PollEvent(&event)){
+        switch (event.type)
+        {
+        // exit if the window is closed
+        case SDL_QUIT:
+            game = 0;
+            break;
+        case SDL_KEYDOWN:
+        {
 
-    SDL_Flip(ecran);
+            if (event.key.keysym.sym == SDLK_RIGHT)
+              directionSDL = 1;
 
-}
-   
-i++;
-if(i==5)
-{
+            if (event.key.keysym.sym == SDLK_LEFT)
+              directionSDL = 2;
 
-i=0;
+        }
+        break;
+        case SDL_KEYUP:
+          directionSDL=0;
+        break;
 
-}
-}
-
-
-      
-      
-      while(pos.x > x)
-      {
-walk_back_anim(walk);
-SDL_BlitSurface(back, NULL, ecran, &positionFond);
-SDL_BlitSurface(walk[j], NULL, ecran, &pos);
-
-
-    SDL_Flip(ecran);
-    SDL_Delay(t);
-if (x - pos.x < 10)
-    {
-pos.x-=10;
-}
-else 
-{
-  pos.x-=x-pos.x;
-SDL_BlitSurface(back, NULL, ecran, &positionFond);
-SDL_BlitSurface(idle, NULL, ecran, &pos);
-
-    SDL_Flip(ecran);
-
-}
-   
-j--;
-if(j==0)
-{
-SDL_BlitSurface(back, NULL, ecran, &positionFond);
-SDL_BlitSurface(idle, NULL, ecran, &pos);
-
-    SDL_Flip(ecran);
-
-j=5;
-
-}
-
-
-
-}
-
-      
-
-
-break;
-}
-
-           case SDL_QUIT:
-           done=1;
-           break;
-           case SDL_KEYDOWN:
-           {
-             switch(event.key.keysym.sym)
-             {
-                case SDLK_UP:
-                b[0]=1;
-                break;
-                case SDLK_LEFT:
-                b[1]=1;
-                break;
-                case SDLK_DOWN:
-                b[2]=1;
-                break;
-                case SDLK_RIGHT:
-                b[3]=1;
-                break;
-                
-
-
-             }
-             break;
-
-
-
-           }
-
-
-
-           case SDL_KEYUP:
-           {
-             switch(event.key.keysym.sym)
-             {
-                case SDLK_UP:
-                b[0]=0;
-                break;
-                case SDLK_LEFT:
-                b[1]=0;
-                break;
-                case SDLK_DOWN:
-                b[2]=0;
-                case SDLK_RIGHT:
-                b[3]=0;
-                break;
-
-
-
-
-
-
-             }
-             break;
-
-
-
-           }
-           
-
-            
-
-         }
-
-
-    }
-
-if(b[3])  {
-
-walk_anim(walk);
-SDL_BlitSurface(back, NULL, ecran, &positionFond);
-SDL_BlitSurface(walk[i], NULL, ecran, &pos);
-
-    SDL_Flip(ecran);
-    SDL_Delay(t);
-pos.x+=10;
-   
-i++;
-if(i==5)
-{
-
-i=0;
-
-}
-
-
-
-}
-
-if(b[1]){
-  walk_back_anim(walk);
-SDL_BlitSurface(back, NULL, ecran, &positionFond);
-SDL_BlitSurface(walk[j], NULL, ecran, &pos);
-
-
-    SDL_Flip(ecran);
-    SDL_Delay(t);
-pos.x-=10;
-   
-j--;
-if(j==0)
-{
-
-j=6;
-
-}
-
-}
-
-   } 
-   
-
-    SDL_FreeSurface(back);   
-    SDL_Quit();
-
-    return EXIT_SUCCESS;
-
-
+        }
+      }
+        SDL_Quit();
         return 0;
-}
+}}
                        
 
 

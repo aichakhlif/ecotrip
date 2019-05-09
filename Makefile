@@ -1,16 +1,10 @@
-prog:main.o player.o jeu.o background.o text.o
-	gcc main.o player.o jeu.o background.o text.o -o prog -lSDL -lSDL_image -lSDL_ttf -g
+prog:objet.o main.o ennemy.o perso.o
+	gcc objet.o main.o ennemy.o perso.o -o prog -lSDL -lSDL_image -lSDL_mixer -lSDL -lm -g
+ennemy.o:ennemy.c
+	gcc -c ennemy.c -g
+perso.o:perso.c
+	gcc -c perso.c -g
+objet.o:objet.c
+	gcc -c objet.c -g
 main.o:main.c
 	gcc -c main.c -g
-jeu.o:jeu.c
-	gcc -c jeu.c -g
-player.o:player.c
-	gcc -c player.c -g
-background.o:background.c
-	gcc -c background.c -g
-text.o:text.c
-	gcc -c text.c -g
-clean:
-	rm -fr *.o
-mrproper:clean
-	rm -f prog

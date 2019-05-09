@@ -4,14 +4,17 @@
 //#include <stdlib.h>
 #include <SDL/SDL.h>
 //#include "objet.h"
-#include "ennemy.h"
 #include <SDL/SDL_image.h>
 //#include <SDL/SDL_mixer.h>
 //#include <SDL/SDL_ttf.h>
+/**
+* @struct ennemy
+* @brief struct for ennemy
+*/
 typedef struct ennemy{
-SDL_Rect position;
-SDL_Rect camera[3];
-SDL_Surface *image;
+SDL_Rect position;/*!< Rectangle*/
+SDL_Rect camera[3];/*!< Rectangle*/
+SDL_Surface *image;/*!< Surface. */
 int frame;
 }ennemy;
 

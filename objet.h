@@ -2,11 +2,14 @@
 #define FONCTIONS_H_
 #include <SDL/SDL_image.h>
 
-
+/**
+* @struct objet
+* @brief struct for objet
+*/
 typedef struct objet
 {
-SDL_Rect position;
-SDL_Surface *image;
+SDL_Rect position;/*!< Rectangle*/
+SDL_Surface *image;/*!< Surface. */
 }objet;
 
 

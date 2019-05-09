@@ -3,7 +3,7 @@
 
 #include <SDL/SDL.h>
 #include <SDL/SDL_ttf.h>
-#include "voiture.h"
+#include "player.h"
 #include "background.h"
 
 struct Text {
@@ -17,6 +17,6 @@ typedef struct Text Text;
 
 void initText(Text *T);
 int loadFont(TTF_Font **police);
-void displayText(TTF_Font *police,Text *T,SDL_Surface *screen,Voiture V,Background Bg,Uint32 dt);
+void displayText(TTF_Font *police,Text *T,SDL_Surface *screen,player V,Background Bg,Uint32 dt);
 
 #endif

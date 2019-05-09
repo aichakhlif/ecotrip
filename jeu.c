@@ -3,7 +3,7 @@
 #include <SDL/SDL_ttf.h>
 #include "defs.h"
 #include "background.h"
-#include "voiture.h"
+#include "player.h"
 #include "jeu.h"
 #include "text.h"
 
@@ -13,7 +13,7 @@ int jouer(SDL_Surface * screen)
 	int i=0;
 	Uint32 t_prev, dt=1; 
 	
-	Voiture car;
+	player car;
 	Background Backg;
 	Text txt;
 	
@@ -22,7 +22,7 @@ int jouer(SDL_Surface * screen)
 	
 	TTF_Font *police = NULL;
 
-	if(loadVoitureImages(&car) == -1) {
+	if(loadImages(&car) == -1) {
 		printf("Erreuer Chargement Voiture Images\n");
 		return(-1);
 
@@ -39,7 +39,7 @@ int jouer(SDL_Surface * screen)
 	}
 
 	initBackground(&Backg);
-	initVoiture(&car);
+	initplayer(&car);
 	initText(&txt);
 
 	// program Game loop
@@ -83,7 +83,7 @@ int jouer(SDL_Surface * screen)
 			car.acceleration-=0.001;
 			
 			}
-			moveVoiture(&car,&Backg,dt);
+			moveplayer(&car,&Backg,dt);
 		} // end of message processing
 		i=i%4;
 		//Blit the bachground to the backbuffer
@@ -106,7 +106,7 @@ int jouer(SDL_Surface * screen)
 
 	                // free loaded bitmap
 
-	freeVoiture(&car);
+	freeplayer(&car);
 	freeBackground(&Backg);
 	TTF_CloseFont(police);
 	return(0);

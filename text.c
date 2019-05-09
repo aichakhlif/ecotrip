@@ -19,7 +19,7 @@ int loadFont(TTF_Font **police)
 }
 
 
-void displayText(TTF_Font *police,Text *T,SDL_Surface *screen,Voiture V,Background Bg,Uint32 dt)
+void displayText(TTF_Font *police,Text *T,SDL_Surface *screen,player V,Background Bg,Uint32 dt)
 {
 	SDL_Color couleurNoire = {0, 0, 0};
 	SDL_Color couleurBlanche = {255, 255, 255};

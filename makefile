@@ -1,17 +1,7 @@
-prog:maintest.o  animation.o scrolling.o collision.o bounding.o
-	gcc maintest.o animation.o scrolling.o collision.o bounding.o -o prog -lSDL -lSDL_image -lSDL_mixer -lSDL_ttf -g
-maintest.o:maintest.c
-	gcc -c maintest.c -g
-animation.o:animation.c
-	gcc -c animation.c -g
-scrolling.o:scrolling.c
-	gcc -c scrolling.c -g
-collision.o:collision.c
-	gcc -c collision.c -g
-bounding.o:bounding.c
-	gcc -c bounding.c  -g
-	
+Prog:fonction.o main.o
+	gcc fonction.o main.o -o prog -lSDL -lSDL_image -lSDL_ttf -lSDL_mixer
+main.o:main.c
+	gcc -c main.c -lSDL -lSDL_image -lSDL_ttf -lSDL_mixer
+fonction.o:fonction.c
+	gcc -c fonction.c -lSDL -lSDL_image -lSDL_ttf -lSDL_mixer
 
-
-clean:
-	rm *.o prog

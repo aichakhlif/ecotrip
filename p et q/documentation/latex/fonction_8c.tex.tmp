@@ -1,0 +1,55 @@
+\hypertarget{fonction_8c}{}\section{fonction.\+c File Reference}
+\label{fonction_8c}\index{fonction.\+c@{fonction.\+c}}
+{\ttfamily \#include $<$stdio.\+h$>$}\newline
+{\ttfamily \#include \char`\"{}S\+D\+L/\+S\+D\+L.\+h\char`\"{}}\newline
+{\ttfamily \#include $<$S\+D\+L/\+S\+D\+L\+\_\+image.\+h$>$}\newline
+{\ttfamily \#include $<$S\+D\+L/\+S\+D\+L\+\_\+mixer.\+h$>$}\newline
+{\ttfamily \#include $<$S\+D\+L/\+S\+D\+L\+\_\+ttf.\+h$>$}\newline
+Include dependency graph for fonction.\+c\+:
+% FIG 0
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \hyperlink{fonction_8c_a62b906040a948fd286535422ca557003}{initposition} (S\+D\+L\+\_\+\+Rect $\ast$posback1, S\+D\+L\+\_\+\+Rect $\ast$posback2, S\+D\+L\+\_\+\+Rect $\ast$posplayer1, S\+D\+L\+\_\+\+Rect $\ast$posplayer2)
+\begin{DoxyCompactList}\small\item\em to intialize the position \end{DoxyCompactList}\item 
+void \hyperlink{fonction_8c_a265cd1e3210cd7a004e023a46e869d56}{movementplayer} (int $\ast$direction\+S\+D\+L1, int $\ast$direction\+S\+D\+L2, S\+D\+L\+\_\+\+Rect $\ast$posplayer1, S\+D\+L\+\_\+\+Rect $\ast$posplayer2)
+\begin{DoxyCompactList}\small\item\em to move the player \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Function Documentation}
+\mbox{\Hypertarget{fonction_8c_a62b906040a948fd286535422ca557003}\label{fonction_8c_a62b906040a948fd286535422ca557003}} 
+\index{fonction.\+c@{fonction.\+c}!initposition@{initposition}}
+\index{initposition@{initposition}!fonction.\+c@{fonction.\+c}}
+\subsubsection{\texorpdfstring{initposition()}{initposition()}}
+{\footnotesize\ttfamily void initposition (\begin{DoxyParamCaption}\item[{S\+D\+L\+\_\+\+Rect $\ast$}]{posback1,  }\item[{S\+D\+L\+\_\+\+Rect $\ast$}]{posback2,  }\item[{S\+D\+L\+\_\+\+Rect $\ast$}]{posplayer1,  }\item[{S\+D\+L\+\_\+\+Rect $\ast$}]{posplayer2 }\end{DoxyParamCaption})}
+
+
+
+to intialize the position 
+
+
+\begin{DoxyParams}{Parameters}
+{\em posback1} & the back1 \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+nothing 
+\end{DoxyReturn}
+\mbox{\Hypertarget{fonction_8c_a265cd1e3210cd7a004e023a46e869d56}\label{fonction_8c_a265cd1e3210cd7a004e023a46e869d56}} 
+\index{fonction.\+c@{fonction.\+c}!movementplayer@{movementplayer}}
+\index{movementplayer@{movementplayer}!fonction.\+c@{fonction.\+c}}
+\subsubsection{\texorpdfstring{movementplayer()}{movementplayer()}}
+{\footnotesize\ttfamily void movementplayer (\begin{DoxyParamCaption}\item[{int $\ast$}]{direction\+S\+D\+L1,  }\item[{int $\ast$}]{direction\+S\+D\+L2,  }\item[{S\+D\+L\+\_\+\+Rect $\ast$}]{posplayer1,  }\item[{S\+D\+L\+\_\+\+Rect $\ast$}]{posplayer2 }\end{DoxyParamCaption})}
+
+
+
+to move the player 
+
+
+\begin{DoxyParams}{Parameters}
+{\em direction\+S\+DL} & the direction of player 1 \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+nothing 
+\end{DoxyReturn}
